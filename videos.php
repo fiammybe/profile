@@ -43,7 +43,7 @@ function editvideos($videosObj, $hideForm = false) {
 $profile_template = 'profile_videos.html';
 include_once 'header.php';
 
-$profile_videos_handler = icms_getModuleHandler('videos', basename(dirname(__FILE__)), 'profile');
+$profile_videos_handler = icms_getModuleHandler('videos', basename(__DIR__), 'profile');
 
 /** Use a naming convention that indicates the source of the content of the variable */
 $clean_op = '';
