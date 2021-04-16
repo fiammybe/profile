@@ -45,7 +45,7 @@ $adminmenu[] = array(
 	'icon'  => 'images/admin/permissions_big.png',
 	'small' => 'images/admin/permissions_small.png');
 
-$module = icms::handler("icms_module")->getByDirname(basename(dirname(dirname(__FILE__))), TRUE);
+$module = icms::handler("icms_module")->getByDirname(basename(dirname(__DIR__))), TRUE);
 if ($module->config['profile_social']) {
 	$adminmenu[] = array(
 		'title'	=> _MI_PROFILE_PICTURES,

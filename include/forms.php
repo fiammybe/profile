@@ -43,7 +43,7 @@ function &getRegisterForm(&$user, $profile, $next_step = 0, $step) {
     }
 
     // Dynamic fields
-    $profile_handler = icms_getmodulehandler('profile', basename(dirname(dirname(__FILE__))), 'profile');
+    $profile_handler = icms_getmodulehandler('profile', basename(dirname(__DIR__))), 'profile');
     // Get fields
     $fields = $profile_handler->loadFields();
 
@@ -66,7 +66,7 @@ function &getRegisterForm(&$user, $profile, $next_step = 0, $step) {
     ksort($elements);
 
     // Get categories
-    $cat_handler = icms_getmodulehandler('category', basename(dirname(dirname(__FILE__))), 'profile');
+    $cat_handler = icms_getmodulehandler('category', basename(dirname(__DIR__))), 'profile');
     $categories = $cat_handler->getObjects(null, true, false);
 
     foreach (array_keys($elements) as $k) {
@@ -152,10 +152,10 @@ function getUserForm(&$user, $profile = false, $action = false) {
 	icms_loadLanguageFile('core', 'user');
     $form = new icms_form_Theme($title, 'userinfo', $action, 'post', true);
 
-    $profile_handler = icms_getModuleHandler('profile', basename(dirname(dirname(__FILE__))), 'profile');
+    $profile_handler = icms_getModuleHandler('profile', basename(dirname(__DIR__))), 'profile');
     // Dynamic fields
     if (!$profile) {
-        $profile_handler = icms_getModuleHandler('profile', basename(dirname(dirname(__FILE__))), 'profile');
+        $profile_handler = icms_getModuleHandler('profile', basename(dirname(__DIR__))), 'profile');
         $profile = $profile_handler->get($user->getVar('uid'));
     }
     // Get fields
@@ -218,7 +218,7 @@ function getUserForm(&$user, $profile = false, $action = false) {
     $elements[0][] = array('element' => new icms_form_elements_Hidden('op', 'save'), 'required' => 0);
     $weights[0][] = 0;
 
-    $profile_cat_handler = icms_getmodulehandler('category', basename(dirname(dirname(__FILE__))), 'profile');
+    $profile_cat_handler = icms_getmodulehandler('category', basename(dirname(__DIR__))), 'profile');
     $categories = $profile_cat_handler->getObjects(null, true, false);
 
     foreach (array_keys($fields) as $i) {
@@ -240,7 +240,7 @@ function getUserForm(&$user, $profile = false, $action = false) {
     }
 
     if (icms::$user && icms::$user->isAdmin()) {
-		icms_loadLanguageFile(basename(dirname(dirname(__FILE__))), 'admin');
+		icms_loadLanguageFile(basename(dirname(__DIR__))), 'admin');
         //If user has admin rights on groups
         include_once ICMS_ROOT_PATH."/modules/system/constants.php";
         if ($gperm_handler->checkRight("system_admin", XOOPS_SYSTEM_GROUP, icms::$user->getGroups(), 1)) {

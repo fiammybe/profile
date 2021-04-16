@@ -19,7 +19,7 @@ class mod_profile_TribeuserHandler extends icms_ipf_Handler {
 	 * @param icms_db_legacy_Database $db databae object
 	 */
 	public function __construct(&$db) {
-		parent::__construct($db, 'tribeuser', 'tribeuser_id', 'tribeuser_id', '', basename(dirname(dirname(__FILE__))));
+		parent::__construct($db, 'tribeuser', 'tribeuser_id', 'tribeuser_id', '', basename(dirname(__DIR__))));
 	}
 
 	/**
@@ -142,7 +142,7 @@ class mod_profile_TribeuserHandler extends icms_ipf_Handler {
 		}
 
 		// check if the specified user is the owner of this tribe
-		$profile_tribes_handler = icms_getModuleHandler('tribes', basename(dirname(dirname(__FILE__))), 'profile');
+		$profile_tribes_handler = icms_getModuleHandler('tribes', basename(dirname(__DIR__))), 'profile');
 		$criteria = new icms_db_criteria_Compo();
 		$criteria->add(new icms_db_criteria_Item('uid_owner', $obj->getVar('user_id')));
 		$criteria->add(new icms_db_criteria_Item('tribes_id', $obj->getVar('tribe_id')));

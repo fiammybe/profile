@@ -89,7 +89,7 @@ class mod_profile_Tribetopic extends icms_ipf_seo_Object {
 		$ret['editItemLink'] = str_replace($this->handler->_itemname.'.php?op=mod', 'tribes.php?tribes_id='.$this->getVar('tribes_id').'&amp;op=modtribetopic', $this->getEditItemLink(false, true, true));
 		$ret['deleteItemLink'] = str_replace($this->handler->_itemname.'.php?op=del', 'tribes.php?tribes_id='.$this->getVar('tribes_id').'&amp;op=deltribetopic', $this->getDeleteItemLink(false, true, true));
 		// build last post link
-		$module = icms::handler("icms_module")->getByDirname(basename(dirname(dirname(__FILE__))), TRUE);
+		$module = icms::handler("icms_module")->getByDirname(basename(dirname(__DIR__))), TRUE);
 		$start = '';
 		if ($this->getVar('replies') + 1 > $module->config['tribepostsperpage']) {
 			$start = '&start='.(($this->getVar('replies') + 1) - (($this->getVar('replies') + 1) % $module->config['tribepostsperpage']));

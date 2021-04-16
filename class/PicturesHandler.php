@@ -19,8 +19,8 @@ class mod_profile_PicturesHandler extends icms_ipf_Handler {
 	 * @param icms_db_legacy_Database $db database connection object
 	 */
 	public function __construct(&$db) {
-		parent::__construct($db, 'pictures', 'pictures_id', 'title', '', basename(dirname(dirname(__FILE__))));
-		$module = icms::handler("icms_module")->getByDirname(basename(dirname(dirname(__FILE__))), TRUE);
+		parent::__construct($db, 'pictures', 'pictures_id', 'title', '', basename(dirname(__DIR__))));
+		$module = icms::handler("icms_module")->getByDirname(basename(dirname(__DIR__))), TRUE);
 		$this->enableUpload(array('image/gif', 'image/jpeg', 'image/pjpeg', 'image/png'), $module->config['maxfilesize_picture'], $module->config['max_original_width'], $module->config['max_original_height']);
 	}
 
@@ -34,7 +34,7 @@ class mod_profile_PicturesHandler extends icms_ipf_Handler {
 	 * @return icms_db_criteria_Compo $criteria
 	 */
 	private function getPicturesCriteria($start = 0, $limit = 0, $uid_owner = false, $picture_id = false) {
-		$module = icms::handler("icms_module")->getByDirname(basename(dirname(dirname(__FILE__))), TRUE);
+		$module = icms::handler("icms_module")->getByDirname(basename(dirname(__DIR__))), TRUE);
 		$criteria = new icms_db_criteria_Compo();
 		if ($start) $criteria->setStart((int)$start);
 		if ($limit)	$criteria->setLimit((int)$limit);
@@ -191,7 +191,7 @@ class mod_profile_PicturesHandler extends icms_ipf_Handler {
 	 */
 	public function checkUploadLimit() {
 		if (!is_object(icms::$user)) return false;
-		$module = icms::handler("icms_module")->getByDirname(basename(dirname(dirname(__FILE__))), TRUE);
+		$module = icms::handler("icms_module")->getByDirname(basename(dirname(__DIR__))), TRUE);
 		if ($module->config['nb_pict'] == 0) return true;
 		$count = $this->getCount(new icms_db_criteria_Compo(new icms_db_criteria_Item('uid_owner', icms::$user->getVar('uid'))));
 		return ($count < $module->config['nb_pict']);
@@ -218,14 +218,14 @@ class mod_profile_PicturesHandler extends icms_ipf_Handler {
 	 * @return true
 	 */
 	protected function afterInsert(&$obj) {
-		$module = icms::handler("icms_module")->getByDirname(basename(dirname(dirname(__FILE__))), TRUE);
+		$module = icms::handler("icms_module")->getByDirname(basename(dirname(__DIR__))), TRUE);
 		$img = $this->getImagePath().$obj->getVar('url');
 		$this->resizeImage($img, $module->config['thumb_width'], $module->config['thumb_height'], $module->config['resized_width'], $module->config['resized_height']);
 
 		$thisUser = icms::handler('icms_member')->getUser($obj->getVar('uid_owner'));
 		$tags['PICTURE_TITLE'] = $obj->getVar('title');
 		$tags['PICTURE_OWNER'] = $thisUser->getVar('uname');
-		$tags['PICTURE_URL'] = ICMS_URL.'/modules/'.basename(dirname(dirname(__FILE__))).'/pictures.php?uid='.$obj->getVar('uid_owner');
+		$tags['PICTURE_URL'] = ICMS_URL.'/modules/'.basename(dirname(__DIR__))).'/pictures.php?uid='.$obj->getVar('uid_owner');
 		icms::handler('icms_data_notification')->triggerEvent('pictures', $obj->getVar('uid_owner'), 'new_picture', $tags, array(), $module->getVar('mid'));
 
 		return true;
@@ -242,7 +242,7 @@ class mod_profile_PicturesHandler extends icms_ipf_Handler {
 	protected function afterDelete(&$obj) {
 		$imgPath = $this->getImagePath();
 		$imgUrl = $obj->getVar('url');
-		$module = icms::handler("icms_module")->getByDirname(basename(dirname(dirname(__FILE__))), TRUE);
+		$module = icms::handler("icms_module")->getByDirname(basename(dirname(__DIR__))), TRUE);
 
 		if (!empty($imgUrl) && $module->config['physical_delete']) {
 			unlink($imgPath.$imgUrl);

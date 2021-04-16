@@ -50,7 +50,7 @@ function mergetribes($tribes_id) {
 
 include_once 'admin_header.php';
 
-$profile_tribes_handler = icms_getModuleHandler('tribes', basename(dirname(dirname(__FILE__))), 'profile');
+$profile_tribes_handler = icms_getModuleHandler('tribes', basename(dirname(__DIR__))), 'profile');
 /** Use a naming convention that indicates the source of the content of the variable */
 $clean_op = '';
 if (isset($_GET['op'])) $clean_op = htmlentities($_GET['op']);

@@ -15,7 +15,7 @@
 define('PROFILE_DB_VERSION', 2);
 
 function addField($name, $title, $description, $category, $type, $valuetype, $weight, $canedit, $options, $step_id, $length, $required = 0) {
-	$profile_field_handler = icms_getModuleHandler('field', basename(dirname(dirname(__FILE__))), 'profile');
+	$profile_field_handler = icms_getModuleHandler('field', basename(dirname(__DIR__))), 'profile');
 	$fieldObj = $profile_field_handler->get(0);
 	$fieldObj->setVar('catid', $category);
 	$fieldObj->setVar('field_type', $type);
@@ -39,7 +39,7 @@ function addField($name, $title, $description, $category, $type, $valuetype, $we
 }
 
 function addCategory($name, $weight) {
-	$profile_category_handler = icms_getModuleHandler('category', basename(dirname(dirname(__FILE__))), 'profile');
+	$profile_category_handler = icms_getModuleHandler('category', basename(dirname(__DIR__))), 'profile');
 	$categoryObj = $profile_category_handler->get(0);
 	$categoryObj->setVar('cat_title', $name);
 	$categoryObj->setVar('cat_weight', $weight);
@@ -48,7 +48,7 @@ function addCategory($name, $weight) {
 }
 
 function addStep($name, $desc, $order, $save) {
-	$profile_regstep_handler = icms_getModuleHandler('regstep', basename(dirname(dirname(__FILE__))), 'profile');
+	$profile_regstep_handler = icms_getModuleHandler('regstep', basename(dirname(__DIR__))), 'profile');
 	$regstepObj = $profile_regstep_handler->get(0);
 	$regstepObj->setVar('step_name', $name);
 	$regstepObj->setVar('step_intro', $desc);
@@ -59,7 +59,7 @@ function addStep($name, $desc, $order, $save) {
 }
 function addVisibility($fieldid, $user_groups = array(ICMS_GROUP_ADMIN), $profile_group = 0) {
 	// uncomment this after IPFing the visibility class
-	/*$profile_visibility_handler = icms_getModuleHandler('visibility', basename(dirname(dirname(__FILE__))), 'profile');
+	/*$profile_visibility_handler = icms_getModuleHandler('visibility', basename(dirname(__DIR__))), 'profile');
 	foreach ($user_groups as $user_group) {
 		$visibilityObj = $profile_visibility_handler->get(0);
 		$visibilityObj->setVar('fieldid', $fieldid);
@@ -69,7 +69,7 @@ function addVisibility($fieldid, $user_groups = array(ICMS_GROUP_ADMIN), $profil
 	}
 	return true;*/
 	foreach ($user_groups as $user_group)
-		icms::$xoopsDB->query("INSERT INTO ".icms::$xoopsDB->prefix(basename(dirname(dirname(__FILE__)))."_visibility")." VALUES (".$fieldid.", ".$user_group.", ".$profile_group.")");
+		icms::$xoopsDB->query("INSERT INTO ".icms::$xoopsDB->prefix(basename(dirname(__DIR__)))."_visibility")." VALUES (".$fieldid.", ".$user_group.", ".$profile_group.")");
 }
 
 function profile_db_upgrade_1() {
@@ -139,14 +139,14 @@ function profile_db_upgrade_1() {
 
 function profile_db_upgrade_2() {
 	// Initialization
-	$profile_field_handler = icms_getModuleHandler('field', basename(dirname(dirname(__FILE__))), 'profile');
+	$profile_field_handler = icms_getModuleHandler('field', basename(dirname(__DIR__))), 'profile');
 
 	// add new fields
 	$fieldid = addField('email',           _US_EMAIL,                '', 2, 'email',    1,  5, 0, array(),                1, 255, 1);
 	addVisibility($fieldid, array(ICMS_GROUP_ADMIN, ICMS_GROUP_USERS), 0);
 
 	// Copy images
-	icms_core_Filesystem::copyRecursive(ICMS_ROOT_PATH.'/modules/'.basename(dirname(dirname(__FILE__))).'/images/field', ICMS_UPLOAD_PATH.'/'.basename(dirname(dirname(__FILE__))).'/field');
+	icms_core_Filesystem::copyRecursive(ICMS_ROOT_PATH.'/modules/'.basename(dirname(__DIR__))).'/images/field', ICMS_UPLOAD_PATH.'/'.basename(dirname(__DIR__))).'/field');
 
 	// Assign Images to fields
 	$profile_field_handler->updateAll('url', 'aim.gif', new icms_db_criteria_Compo(new icms_db_criteria_Item('field_name', 'user_aim')));

@@ -24,7 +24,7 @@ class mod_profile_FieldHandler extends icms_ipf_Handler {
 	 * @param icms_db_legacy_Database $db
 	 */
 	public function __construct(&$db) {
-		parent::__construct($db, 'field', 'fieldid', 'field_name', 'field_description', basename(dirname(dirname(__FILE__))));
+		parent::__construct($db, 'field', 'fieldid', 'field_name', 'field_description', basename(dirname(__DIR__))));
 		$this->enableUpload(array('image/gif', 'image/jpeg', 'image/pjpeg', 'image/png'), 5120, 18, 18);
 	}
 
@@ -36,9 +36,9 @@ class mod_profile_FieldHandler extends icms_ipf_Handler {
 	 */
 	public function getProfileFields(&$thisUser) {
 		// get handlers
-		$category_handler = icms_getModuleHandler('category', basename(dirname(dirname(__FILE__))), 'profile');
-		$profile_handler = icms_getModuleHandler('profile', basename(dirname(dirname(__FILE__))), 'profile');
-		$visibility_handler = icms_getModuleHandler('visibility', basename(dirname(dirname(__FILE__))), 'profile');
+		$category_handler = icms_getModuleHandler('category', basename(dirname(__DIR__))), 'profile');
+		$profile_handler = icms_getModuleHandler('profile', basename(dirname(__DIR__))), 'profile');
+		$visibility_handler = icms_getModuleHandler('visibility', basename(dirname(__DIR__))), 'profile');
 
 		$groups = is_object(icms::$user) ? icms::$user->getGroups() : array(ICMS_GROUP_ANONYMOUS);
 		$criteria = new icms_db_criteria_Compo();
@@ -53,7 +53,7 @@ class mod_profile_FieldHandler extends icms_ipf_Handler {
 		$profile = $profile_handler->get($thisUser->getVar('uid'));
 		unset($category_handler, $visibility_handler, $profile_handler, $criteria);
 
-		$module = icms::handler("icms_module")->getByDirname(basename(dirname(dirname(__FILE__))), TRUE);
+		$module = icms::handler("icms_module")->getByDirname(basename(dirname(__DIR__))), TRUE);
 		$rtn = array();
 		for ($i = 0; $i < count($categories); $i++) {
 			$first_category = true;
@@ -99,7 +99,7 @@ class mod_profile_FieldHandler extends icms_ipf_Handler {
 	 * @return bool FALSE if failed, TRUE if already present and unchanged or successful
 	 */
 	public function insert(&$obj, $force = false, $checkObject = true, $debug = false) {
-		$profile_handler = icms_getmodulehandler('profile', basename(dirname(dirname(__FILE__))), 'profile');
+		$profile_handler = icms_getmodulehandler('profile', basename(dirname(__DIR__))), 'profile');
 
 		$obj->cleanVars();
 		$defaultstring = "";
@@ -186,7 +186,7 @@ class mod_profile_FieldHandler extends icms_ipf_Handler {
 
 	public function filterSteps() {
 		if(!count($this->_stepsArray)) {
-			$step_handler = icms_getModuleHandler("regstep", basename(dirname(dirname(__FILE__))), "profile");
+			$step_handler = icms_getModuleHandler("regstep", basename(dirname(__DIR__))), "profile");
 			$this->_stepsArray = $step_handler->getList();
 		}
 		return $this->_stepsArray;
@@ -200,12 +200,12 @@ class mod_profile_FieldHandler extends icms_ipf_Handler {
 	* @return bool FALSE if failed.
 	**/
 	public function delete(&$obj, $force = false) {
-		$profile_handler = icms_getmodulehandler('profile', basename(dirname(dirname(__FILE__))), 'profile');
+		$profile_handler = icms_getmodulehandler('profile', basename(dirname(__DIR__))), 'profile');
 		$sql = "ALTER TABLE ".$profile_handler->table." DROP ".$obj->getVar('field_name', 'n');
 		if ($this->db->query($sql)) {
 			if (!parent::delete($obj, $force)) return false;
 			if ($obj->getVar('field_show') || $obj->getVar('field_edit')) {
-				$profile_module = icms::handler('icms_module')->getByDirname(basename(dirname(dirname(__FILE__))));
+				$profile_module = icms::handler('icms_module')->getByDirname(basename(dirname(__DIR__))));
 				if (is_object($profile_module)) {
 					// Remove group permissions
 					$criteria = new icms_db_criteria_Compo(new icms_db_criteria_Item('gperm_modid', $profile_module->getVar('mid')));
@@ -271,7 +271,7 @@ class mod_profile_FieldHandler extends icms_ipf_Handler {
 	 */
 	public function getCategoriesArray() {
 		if (!$this->_categoriesArray) {
-			$profile_category_handler = icms_getModuleHandler('category', basename(dirname(dirname(__FILE__))), 'profile');
+			$profile_category_handler = icms_getModuleHandler('category', basename(dirname(__DIR__))), 'profile');
 			$criteria = new icms_db_criteria_Compo();
 			$criteria->setSort('cat_title');
 			$criteria->setOrder('ASC');

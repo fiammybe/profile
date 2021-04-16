@@ -28,7 +28,7 @@ function profile_search($queryarray, $andor, $limit, $offset, $userid) {
 
 	$ret = array();
 	$i = 0;
-	$dirname = basename(dirname(dirname(__FILE__)));
+	$dirname = basename(dirname(__DIR__)));
 
 	// check if anonymous users can access profiles
 	if (!is_object(icms::$user) && !$icmsConfigUser['allow_annon_view_prof']) return $ret;
@@ -37,7 +37,7 @@ function profile_search($queryarray, $andor, $limit, $offset, $userid) {
 	$module = icms::handler('icms_module')->getByDirname($dirname, TRUE);
 	if (!$module->config['enable_tribes']) return $ret;
 
-	$profile_tribes_handler = icms_getModuleHandler('tribes', basename(dirname(dirname(__FILE__))), 'profile');
+	$profile_tribes_handler = icms_getModuleHandler('tribes', basename(dirname(__DIR__))), 'profile');
 	
 	$criteria = new icms_db_criteria_Compo();
 	// if those two lines are uncommented, "all search results" isn't showing in the search results

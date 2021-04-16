@@ -59,7 +59,7 @@ class mod_profile_Videos extends icms_ipf_Object {
 	 * @return str html code to display video
 	 */
 	public function getVideoToDisplay($main = false) {
-		$module = icms::handler("icms_module")->getByDirname(basename(dirname(dirname(__FILE__))), TRUE);
+		$module = icms::handler("icms_module")->getByDirname(basename(dirname(__DIR__))), TRUE);
 		$width = $main ? $module->config['width_maintube'] : $module->config['width_tube'];
 		$height = $main ? $module->config['height_maintube'] : $module->config['height_tube'];
 

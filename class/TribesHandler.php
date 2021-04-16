@@ -28,8 +28,8 @@ class mod_profile_TribesHandler extends icms_ipf_Handler {
 	 * @param icms_db_legacy_Database $db database connection object
 	 */
 	public function __construct(&$db) {
-		parent::__construct($db, 'tribes', 'tribes_id', 'title', '', basename(dirname(dirname(__FILE__))));
-		$module = icms::handler("icms_module")->getByDirname(basename(dirname(dirname(__FILE__))), TRUE);
+		parent::__construct($db, 'tribes', 'tribes_id', 'title', '', basename(dirname(__DIR__))));
+		$module = icms::handler("icms_module")->getByDirname(basename(dirname(__DIR__))), TRUE);
 		$this->enableUpload(array('image/gif', 'image/jpeg', 'image/pjpeg', 'image/png'), $module->config['maxfilesize_picture'], $module->config['max_original_width'], $module->config['max_original_height']);
 	}
 
@@ -131,7 +131,7 @@ class mod_profile_TribesHandler extends icms_ipf_Handler {
 	 * @return array of all tribes where the specified user is a member
 	 */
 	public function getMembershipTribes($uid) {
-		$profile_tribeuser_handler = icms_getModuleHandler('tribeuser', basename(dirname(dirname(__FILE__))), 'profile');
+		$profile_tribeuser_handler = icms_getModuleHandler('tribeuser', basename(dirname(__DIR__))), 'profile');
 		$tribe_users = $profile_tribeuser_handler->getTribeusers(0, 0, $uid, false, false, '=', 1, 1);
 
 		$tribe_ids = array();
@@ -236,9 +236,9 @@ class mod_profile_TribesHandler extends icms_ipf_Handler {
 		$merge_tribesObj = $this->get($merge_tribes_id);
 		if ($tribesObj->isNew() || $merge_tribesObj->isNew()) redirect_header(PROFILE_ADMIN_URL.'tribes.php', 3, _AM_PROFILE_TRIBES_MERGE_ERR_ID);
 
-		$profile_tribetopic_handler = icms_getModuleHandler('tribetopic', basename(dirname(dirname(__FILE__))), 'profile');
-		$profile_tribepost_handler = icms_getModuleHandler('tribepost', basename(dirname(dirname(__FILE__))), 'profile');
-		$profile_tribeuser_handler = icms_getModuleHandler('tribeuser', basename(dirname(dirname(__FILE__))), 'profile');
+		$profile_tribetopic_handler = icms_getModuleHandler('tribetopic', basename(dirname(__DIR__))), 'profile');
+		$profile_tribepost_handler = icms_getModuleHandler('tribepost', basename(dirname(__DIR__))), 'profile');
+		$profile_tribeuser_handler = icms_getModuleHandler('tribeuser', basename(dirname(__DIR__))), 'profile');
 
 		// move the discussions
 		$profile_tribetopic_handler->updateAll('tribes_id', $merge_tribes_id, icms_buildCriteria(array('tribes_id' => $tribes_id)));
@@ -291,7 +291,7 @@ class mod_profile_TribesHandler extends icms_ipf_Handler {
 		if (empty($imgName)) return true;
 
 		// Resizing Images
-		$module = icms::handler("icms_module")->getByDirname(basename(dirname(dirname(__FILE__))), TRUE);
+		$module = icms::handler("icms_module")->getByDirname(basename(dirname(__DIR__))), TRUE);
 		$this->resizeImage($this->getImagePath().$imgName, $module->config['thumb_width'], $module->config['thumb_height'], $module->config['resized_width'], $module->config['resized_height'], $this->getImagePath());
 		return true;
 	}
@@ -306,10 +306,10 @@ class mod_profile_TribesHandler extends icms_ipf_Handler {
 	 */
 	protected function beforeDelete(&$obj) {
 		$notification_handler = icms::handler('icms_data_notification');
-		$profile_tribetopic_handler = icms_getModuleHandler('tribetopic', basename(dirname(dirname(__FILE__))), 'profile');
-		$profile_tribeuser_handler = icms_getModuleHandler('tribeuser', basename(dirname(dirname(__FILE__))), 'profile');
-		$profile_tribepost_handler = icms_getModuleHandler('tribepost', basename(dirname(dirname(__FILE__))), 'profile');
-		$module = icms::handler("icms_module")->getByDirname(basename(dirname(dirname(__FILE__))), TRUE);
+		$profile_tribetopic_handler = icms_getModuleHandler('tribetopic', basename(dirname(__DIR__))), 'profile');
+		$profile_tribeuser_handler = icms_getModuleHandler('tribeuser', basename(dirname(__DIR__))), 'profile');
+		$profile_tribepost_handler = icms_getModuleHandler('tribepost', basename(dirname(__DIR__))), 'profile');
+		$module = icms::handler("icms_module")->getByDirname(basename(dirname(__DIR__))), TRUE);
 
 		$rtn = true;
 

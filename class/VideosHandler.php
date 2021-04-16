@@ -19,7 +19,7 @@ class mod_profile_VideosHandler extends icms_ipf_Handler {
 	 * @param icms_db_legacy_Database $db database object
 	 */
 	public function __construct(&$db) {
-		parent::__construct($db, 'videos', 'videos_id', 'video_title', '', basename(dirname(dirname(__FILE__))));
+		parent::__construct($db, 'videos', 'videos_id', 'video_title', '', basename(dirname(__DIR__))));
 	}
 
 	/**
@@ -88,10 +88,10 @@ class mod_profile_VideosHandler extends icms_ipf_Handler {
 	 */
 	protected function afterInsert(&$obj) {
 		$thisUser = icms::handler("icms_member")->getUser($obj->getVar('uid_owner'));
-		$module = icms::handler("icms_module")->getByDirname(basename(dirname(dirname(__FILE__))), TRUE);
+		$module = icms::handler("icms_module")->getByDirname(basename(dirname(__DIR__))), TRUE);
 		$tags['VIDEO_TITLE'] = $obj->getVar('video_title');
 		$tags['VIDEO_OWNER'] = $thisUser->getVar('uname');
-		$tags['VIDEO_URL'] = ICMS_URL.'/modules/'.basename(dirname(dirname(__FILE__))).'/videos.php?uid='.$obj->getVar('uid_owner');
+		$tags['VIDEO_URL'] = ICMS_URL.'/modules/'.basename(dirname(__DIR__))).'/videos.php?uid='.$obj->getVar('uid_owner');
 		icms::handler('icms_data_notification')->triggerEvent('videos', $obj->getVar('uid_owner'), 'new_video', $tags, array(), $module->getVar('mid'));
 
 		return true;

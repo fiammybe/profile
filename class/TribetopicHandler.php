@@ -19,7 +19,7 @@ class mod_profile_TribetopicHandler extends icms_ipf_Handler {
 	 * @param icms_db_legacy_Database $db database object
 	 */
 	public function __construct(&$db) {
-		parent::__construct($db, 'tribetopic', 'topic_id', 'title', '', basename(dirname(dirname(__FILE__))));
+		parent::__construct($db, 'tribetopic', 'topic_id', 'title', '', basename(dirname(__DIR__))));
 	}
 
 	/**
@@ -68,11 +68,11 @@ class mod_profile_TribetopicHandler extends icms_ipf_Handler {
 	 */
 	protected function afterInsert(&$obj) {
 		$thisUser = icms::handler("icms_member")->getUser($obj->getVar('poster_uid'));
-		$module = icms::handler("icms_module")->getByDirname(basename(dirname(dirname(__FILE__))), TRUE);
+		$module = icms::handler("icms_module")->getByDirname(basename(dirname(__DIR__))), TRUE);
 		$tags['TRIBETOPIC_TITLE'] = $obj->getVar('title');
 		$tags['POSTER_UNAME'] = $thisUser->getVar('uname');
 		$tags['TRIBETOPIC_URL'] = str_replace($obj->handler->_itemname.'.php?', 'tribes.php?tribes_id='.$obj->getVar('tribes_id').'&', $obj->getItemLink(true));
-		$profile_tribes_handler = icms_getModuleHandler('tribes', basename(dirname(dirname(__FILE__))), 'profile');
+		$profile_tribes_handler = icms_getModuleHandler('tribes', basename(dirname(__DIR__))), 'profile');
 		$tribesObj = $profile_tribes_handler->get($obj->getVar('tribes_id'));
 		$tags['TRIBE_TITLE'] = $tribesObj->getVar('title');
 		icms::handler('icms_data_notification')->triggerEvent('tribetopic', $obj->getVar('tribes_id'), 'new_tribetopic', $tags, array(), $module->getVar('mid'));
@@ -89,8 +89,8 @@ class mod_profile_TribetopicHandler extends icms_ipf_Handler {
 	 * @return bool
 	 */
 	protected function beforeDelete(&$obj) {
-		$profile_tribepost_handler = icms_getModuleHandler('tribepost', basename(dirname(dirname(__FILE__))), 'profile');
-		$module = icms::handler("icms_module")->getByDirname(basename(dirname(dirname(__FILE__))), TRUE);
+		$profile_tribepost_handler = icms_getModuleHandler('tribepost', basename(dirname(__DIR__))), 'profile');
+		$module = icms::handler("icms_module")->getByDirname(basename(dirname(__DIR__))), TRUE);
 		$rtn = $profile_tribepost_handler->deleteAll(new icms_db_criteria_Compo(new icms_db_criteria_Item('topic_id', $obj->getVar('topic_id'))));
 		// delete all notification subscriptions for this tribetopic
 		$rtn = $rtn && icms::handler('icms_data_notification')->unsubscribeByItem($module->getVar('mid'), 'tribepost', $obj->getVar('topic_id'));

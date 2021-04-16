@@ -38,7 +38,7 @@ function editcategory($category_id = 0) {
 
 include_once 'admin_header.php';
 
-$profile_category_handler = icms_getModuleHandler('category', basename(dirname(dirname(__FILE__))), 'profile');
+$profile_category_handler = icms_getModuleHandler('category', basename(dirname(__DIR__))), 'profile');
 /** Use a naming convention that indicates the source of the content of the variable */
 $clean_op = '';
 if (isset($_GET['op'])) $clean_op = htmlentities($_GET['op']);

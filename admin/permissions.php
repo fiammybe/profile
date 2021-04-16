@@ -43,7 +43,7 @@ $opform->display();
 
 $form = new icms_form_Groupperm($title_of_form, icms::$module->getVar('mid'), $perm_name, '', 'admin/permissions.php', $anonymous);
 
-$profile_handler = icms_getmodulehandler('profile', basename(dirname(dirname(__FILE__))), 'profile');
+$profile_handler = icms_getmodulehandler('profile', basename(dirname(__DIR__))), 'profile');
 $fields = $profile_handler->loadFields();
 
 if ($op == "search") {

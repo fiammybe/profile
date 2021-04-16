@@ -14,5 +14,5 @@
  */
 
 include_once '../../../include/cp_header.php';
-include_once ICMS_ROOT_PATH.'/modules/'.basename(dirname(dirname(__FILE__))).'/include/common.php';
+include_once ICMS_ROOT_PATH.'/modules/'.basename(dirname(__DIR__)).'/include/common.php';
 include_once PROFILE_ROOT_PATH."include/requirements.php";

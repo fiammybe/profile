@@ -85,7 +85,7 @@ class mod_profile_Tribeuser extends icms_ipf_Object {
 	 * @return str itemLink of tribe or tribe_id if no tribe was found
 	 */
 	public function getTribeName() {
-		$profile_tribes_handler = icms_getModuleHandler('tribes', basename(dirname(dirname(__FILE__))), 'profile');
+		$profile_tribes_handler = icms_getModuleHandler('tribes', basename(dirname(__DIR__))), 'profile');
 		$tribes = $profile_tribes_handler->getTribes(0, 1, false, $this->getVar('tribe_id'));
 		if (count($tribes) == 1) return $tribes[$this->getVar('tribe_id')]['itemLink'];
 		return $this->getVar('tribe_id');
@@ -116,7 +116,7 @@ class mod_profile_Tribeuser extends icms_ipf_Object {
 	 */
 	public function toArray() {
 		$ret = parent::toArray();
-		$profile_tribes_handler = icms_getmodulehandler('tribes', basename(dirname(dirname(__FILE__))), 'profile');
+		$profile_tribes_handler = icms_getmodulehandler('tribes', basename(dirname(__DIR__))), 'profile');
 		$tribe = $profile_tribes_handler->get($this->getVar('tribe_id'))->toArray();
 		$ret['tribe_itemLink'] = $tribe['itemLink'];
 		unset($profile_tribes_handler, $tribe);

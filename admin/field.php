@@ -37,7 +37,7 @@ function editfield($field_id = 0) {
 
 include_once 'admin_header.php';
 
-$profile_field_handler = icms_getModuleHandler('field', basename(dirname(dirname(__FILE__))), 'profile');
+$profile_field_handler = icms_getModuleHandler('field', basename(dirname(__DIR__))), 'profile');
 /* Use a naming convention that indicates the source of the content of the variable */
 $clean_op = '';
 if (isset($_GET['op'])) $clean_op = htmlentities($_GET['op']);

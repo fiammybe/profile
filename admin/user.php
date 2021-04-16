@@ -33,7 +33,7 @@ switch($op) {
 		$button_tray->addElement(new icms_form_elements_Button('', 'edit', _EDIT, 'submit'));
 		$button_tray->addElement(new icms_form_elements_Button('', 'delete', _DELETE, 'submit'));
 		$form->addElement($button_tray);
-		//$form->addElement(new icms_form_elements_Button('', 'submit', _SUBMIT, 'submit'));
+
 		$form->display();
 		echo "<br />\n";
 		$user_count = $member_handler->getUserCount(new icms_db_criteria_Item('level', '-1'));
@@ -60,7 +60,7 @@ switch($op) {
 		break;
 
 	case 'edit':
-		icms_loadLanguageFile(basename(dirname(dirname(__FILE__))), 'main');
+		icms_loadLanguageFile(basename(dirname(__DIR__)), 'main');
 		$obj = $member_handler->getUser((int)$_REQUEST['id']);
 		if (in_array(ICMS_GROUP_ADMIN, $obj->getGroups()) && !in_array(ICMS_GROUP_ADMIN, icms::$user->getGroups())) {
 			// If not webmaster trying to edit a webmaster - disallow
@@ -73,7 +73,7 @@ switch($op) {
 		break;
 
 	case 'save':
-		icms_loadLanguageFile(basename(dirname(dirname(__FILE__))), 'main');
+		icms_loadLanguageFile(basename(dirname(__DIR__)), 'main');
 		if (!icms::$security->check()) redirect_header('user.php', 3, _NOPERM.'<br />'.implode('<br />', icms::$security->getErrors()));
 		$uid = 0;
 		if (!empty($_POST['uid'])) {
@@ -118,7 +118,7 @@ switch($op) {
 		if ($stop != '') $errors[] = $stop;
 
 		// Dynamic fields
-		$profile_handler = icms_getModuleHandler('profile', basename(dirname(dirname(__FILE__))), 'profile');
+		$profile_handler = icms_getModuleHandler('profile', basename(dirname(__DIR__)), 'profile');
 		// Get fields
 		$fields = $profile_handler->loadFields();
 		// Get ids of fields that can be edited
@@ -196,7 +196,7 @@ switch($op) {
 			if (!icms::$security->check()) {
 				redirect_header('user.php', 3, implode(',', icms::$security->getErrors()), false);
 			}
-			$profile_handler = icms_getmodulehandler('profile', basename(dirname(dirname(__FILE__))), 'profile');
+			$profile_handler = icms_getmodulehandler('profile', basename(dirname(__DIR__))), 'profile');
 			$profile = $profile_handler->get($obj->getVar('uid'));
 			if ($profile->isNew() || $profile_handler->delete($profile)) {
 				if ($member_handler->deleteUser($obj)) {

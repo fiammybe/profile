@@ -25,7 +25,7 @@ class mod_profile_FriendshipHandler extends icms_ipf_Handler {
 	 * @param icms_db_legacy_Database $db database connection object
 	 */
 	public function __construct(&$db) {
-		parent::__construct($db, 'friendship', 'friendship_id', 'friend1_uid', '', basename(dirname(dirname(__FILE__))));
+		parent::__construct($db, 'friendship', 'friendship_id', 'friend1_uid', '', basename(dirname(__DIR__))));
 	}
 
 	/**

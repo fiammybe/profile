@@ -20,7 +20,7 @@ class mod_profile_VisibilityHandler extends icms_ipf_Handler {
 	 * @param icms_db_legacy_Database $db database object
 	 */
 	public function __construct(&$db) {
-		parent::__construct($db, 'visibility', array('fieldid', 'user_group', 'profile_group'), '', '', basename(dirname(dirname(__FILE__))));
+		parent::__construct($db, 'visibility', array('fieldid', 'user_group', 'profile_group'), '', '', basename(dirname(__DIR__))));
 	}
 
 	/**

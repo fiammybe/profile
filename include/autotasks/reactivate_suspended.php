@@ -14,7 +14,7 @@
 defined('ICMS_ROOT_PATH') or die("ImpressCMS root path not defined");
 
 $member_handler = icms::handler('icms_member');
-$profile_configs_handler = icms_getModuleHandler('configs', basename(dirname(dirname(dirname(__FILE__)))), 'profile');
+$profile_configs_handler = icms_getModuleHandler('configs', basename(dirname(dirname(__DIR__)))), 'profile');
 
 $criteria = new icms_db_criteria_Compo();
 $criteria->add(new icms_db_criteria_Item('suspension', '1'));

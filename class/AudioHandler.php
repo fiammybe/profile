@@ -19,8 +19,8 @@ class mod_profile_AudioHandler extends icms_ipf_Handler {
 	 * @param icms_db_legacy_Database $db database connection object
 	*/
 	public function __construct(&$db) {
-		parent::__construct($db, 'audio', 'audio_id', 'title', '', basename(dirname(dirname(__FILE__))));
-		$module = icms::handler("icms_module")->getByDirname(basename(dirname(dirname(__FILE__))), TRUE);
+		parent::__construct($db, 'audio', 'audio_id', 'title', '', basename(dirname(__DIR__))));
+		$module = icms::handler("icms_module")->getByDirname(basename(dirname(__DIR__))), TRUE);
 		$this->enableUpload(array("audio/mp3" , "audio/x-mp3", "audio/mpeg"), $module->config['maxfilesize_audio']);
 	}
 
@@ -76,7 +76,7 @@ class mod_profile_AudioHandler extends icms_ipf_Handler {
 	 */
 	public function checkUploadLimit() {
 		if (!is_object(icms::$user)) return false;
-		$module = icms::handler("icms_module")->getByDirname(basename(dirname(dirname(__FILE__))), TRUE);
+		$module = icms::handler("icms_module")->getByDirname(basename(dirname(__DIR__))), TRUE);
 		if ($module->config['nb_audio'] == 0) return true;
 		$count = $this->getCount(new icms_db_criteria_Compo(new icms_db_criteria_Item('uid_owner', icms::$user->getVar('uid'))));
 		return ($count < $module->config['nb_audio']);
@@ -105,10 +105,10 @@ class mod_profile_AudioHandler extends icms_ipf_Handler {
 	 */
 	protected function afterInsert(&$obj) {
 		$thisUser = icms::handler("icms_member")->getUser($obj->getVar('uid_owner'));
-		$module = icms::handler("icms_module")->getByDirname(basename(dirname(dirname(__FILE__))), TRUE);
+		$module = icms::handler("icms_module")->getByDirname(basename(dirname(__DIR__))), TRUE);
 		$tags['AUDIO_TITLE'] = $obj->getVar('title');
 		$tags['AUDIO_OWNER'] = $thisUser->getVar('uname');
-		$tags['AUDIO_URL'] = ICMS_URL.'/modules/'.basename(dirname(dirname(__FILE__))).'/audio.php?uid='.$obj->getVar('uid_owner');
+		$tags['AUDIO_URL'] = ICMS_URL.'/modules/'.basename(dirname(__DIR__))).'/audio.php?uid='.$obj->getVar('uid_owner');
 		icms::handler('icms_data_notification')->triggerEvent('audio', $obj->getVar('uid_owner'), 'new_audio', $tags, array(), $module->getVar('mid'));
 
 		return true;

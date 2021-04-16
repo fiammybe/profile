@@ -23,8 +23,8 @@ class mod_profile_ProfileHandler extends icms_ipf_Handler {
 	 * @param icms_db_legacy_Database $db database connection object
 	 */
 	public function __construct(&$db) {
-		parent::__construct($db, 'profile', 'profileid', '', '', basename(dirname(dirname(__FILE__))));
-		$this->_fHandler = icms_getModuleHandler('field', basename(dirname(dirname(__FILE__))), 'profile');
+		parent::__construct($db, 'profile', 'profileid', '', '', basename(dirname(__DIR__))));
+		$this->_fHandler = icms_getModuleHandler('field', basename(dirname(__DIR__))), 'profile');
 	}
 
 	/**
