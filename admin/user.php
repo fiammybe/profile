@@ -68,7 +68,7 @@ switch($op) {
 		}
 		icms::$module->displayAdminMenu(0, _MI_PROFILE_USERS);
 		include_once('../include/forms.php');
-		$form =& getUserForm($obj, false, false, true);
+		$form = getUserForm($obj, false, false, true);
 		$form->display();
 		break;
 
@@ -196,7 +196,7 @@ switch($op) {
 			if (!icms::$security->check()) {
 				redirect_header('user.php', 3, implode(',', icms::$security->getErrors()), false);
 			}
-			$profile_handler = icms_getmodulehandler('profile', basename(dirname(__DIR__))), 'profile');
+			$profile_handler = icms_getmodulehandler('profile', basename(dirname(__DIR__)), 'profile');
 			$profile = $profile_handler->get($obj->getVar('uid'));
 			if ($profile->isNew() || $profile_handler->delete($profile)) {
 				if ($member_handler->deleteUser($obj)) {

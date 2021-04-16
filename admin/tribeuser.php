@@ -34,7 +34,7 @@ function edittribeuser($tribeuser_id) {
 
 include_once 'admin_header.php';
 
-$profile_tribeuser_handler = icms_getModuleHandler('tribeuser', basename(dirname(__DIR__))), 'profile');
+$profile_tribeuser_handler = icms_getModuleHandler('tribeuser', basename(dirname(__DIR__)), 'profile');
 /** Use a naming convention that indicates the source of the content of the variable */
 $clean_op = '';
 if (isset($_GET['op'])) $clean_op = htmlentities($_GET['op']);
@@ -56,7 +56,7 @@ $valid_op = array ('mod', 'addtribeuser', 'del', '');
 if (in_array($clean_op, $valid_op, true)) {
 	switch ($clean_op) {
 		case "mod":
-			$profile_tribes_handler = icms_getModuleHandler('tribes', basename(dirname(__DIR__))), 'profile');
+			$profile_tribes_handler = icms_getModuleHandler('tribes', basename(dirname(__DIR__)), 'profile');
 			$tribes = $profile_tribes_handler->getAllTribes();
 			if (count($tribes) == 0) redirect_header(PROFILE_ADMIN_URL.'tribeuser.php', 3, _AM_PROFILE_TRIBEUSER_NOTTRIBESYET);
 

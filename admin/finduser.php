@@ -17,7 +17,7 @@
 //die('Sorry, this feature is not active yet.');
 include "admin_header.php";
 $op = isset($_REQUEST['op']) ? trim($_REQUEST['op']) : '';
-$profile_smartuser_handler = icms_getModuleHandler('smartuser', basename(dirname(__DIR__))), 'profile');
+$profile_smartuser_handler = icms_getModuleHandler('smartuser', basename(dirname(__DIR__)), 'profile');
 $hidden_fields_form = array('last_login', 'posts', 'notify_method', 'notify_mode', 'uorder', 'umode', 'theme', 'user_mailok', 'attachsig', 'user_viewemail', 'user_regdate', 'timezone_offset', 'openid', 'user_viewoid');
 $hidden_fields_results = array('notify_method', 'notify_mode', 'uorder', 'umode', 'theme', 'user_mailok', 'attachsig', 'user_viewemail', 'timezone_offset', 'user_sig', 'user_regdate', 'last_login', 'openid', 'user_viewoid');
 switch ($op) {

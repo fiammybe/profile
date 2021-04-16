@@ -35,7 +35,7 @@ class ProfileSmartuser extends IcmsPersistableObject {
 	}
 
 	function getUserLink(){
-		return "<a href='".ICMS_URL."/modules/".basename(dirname(__DIR__)))."/userinfo.php?uid=".$this->getVar('uid')."'>".$this->getVar('uname')."</a>";
+		return "<a href='".ICMS_URL."/modules/".basename(dirname(__DIR__))."/userinfo.php?uid=".$this->getVar('uid')."'>".$this->getVar('uname')."</a>";
 	}
 
 	function getUserEail(){
@@ -45,15 +45,15 @@ class ProfileSmartuser extends IcmsPersistableObject {
 }
 class ProfileSmartuserHandler extends IcmsPersistableObjectHandler {
 
-	function ProfileSmartuserHandler($db) {
-		$this->IcmsPersistableObjectHandler($db, 'smartuser', 'uid', 'uname', 'uname', basename(dirname(__DIR__))));
+	function __construct($db) {
+		$this->IcmsPersistableObjectHandler($db, 'smartuser', 'uid', 'uname', 'uname', basename(dirname(__DIR__)));
 		$this->generalSQL = 'SELECT * FROM '.$this->db->prefix('users').' AS '.$this->_itemname.' JOIN '.$this->db->prefix('profile_profile').' AS profile ON profile.profileid='.$this->_itemname.'.uid ';
 	}
 
 	function &getFields(){
 		static $fields_array;
 		if (!isset($fields_array)) {
-			$profile_handler = icms_getModuleHandler('profile', basename(dirname(__DIR__))), 'profile');
+			$profile_handler = icms_getModuleHandler('profile', basename(dirname(__DIR__)), 'profile');
 			$fields_array = $profile_handler->loadFields();
 		}
 		return $fields_array;

@@ -27,7 +27,7 @@ class mod_profile_ConfigsHandler extends icms_ipf_Handler {
 	 * @param icms_db_legacy_Database $db database connection object
 	 */
 	public function __construct(&$db) {
-		parent::__construct($db, 'configs', 'configs_id', '', '', basename(dirname(__DIR__))));
+		parent::__construct($db, 'configs', 'configs_id', '', '', basename(dirname(__DIR__)));
 	}
 
 	/**
@@ -105,7 +105,7 @@ class mod_profile_ConfigsHandler extends icms_ipf_Handler {
 		global $profile_isAdmin;
 
 		if ($profile_isAdmin) return true;
-		$module = icms::handler("icms_module")->getByDirname(basename(dirname(__DIR__))), TRUE);
+		$module = icms::handler("icms_module")->getByDirname(basename(dirname(__DIR__)), TRUE);
 		if (!$module->config["profile_social"]) redirect_header(icms_getPreviousPage('index.php'), 3, _NOPERM);
 
 		$configsObj = $this->getConfigPerUser($uid);
@@ -116,7 +116,7 @@ class mod_profile_ConfigsHandler extends icms_ipf_Handler {
 			if ($status == PROFILE_CONFIG_STATUS_EVERYBODY) return true;
 			if ($status == PROFILE_CONFIG_STATUS_MEMBERS && is_object(icms::$user)) return true;
 			if ($status == PROFILE_CONFIG_STATUS_FRIENDS && is_object(icms::$user) && icms::$user->getVar('uid') != $uid) {
-				$profile_friendship_handler = icms_getModuleHandler('friendship', basename(dirname(__DIR__))), 'profile');
+				$profile_friendship_handler = icms_getModuleHandler('friendship', basename(dirname(__DIR__)), 'profile');
 				$friendships = $profile_friendship_handler->getFriendships(0, 1, icms::$user->getVar('uid'), $uid, PROFILE_FRIENDSHIP_STATUS_ACCEPTED);
 				return (count($friendships) != 0);
 			}

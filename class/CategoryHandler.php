@@ -19,7 +19,7 @@ class mod_profile_CategoryHandler extends icms_ipf_Handler {
 	 * @param icms_db_legacy_Database $db database connection object
 	 */
 	public function __construct(&$db) {
-		parent::__construct($db, 'category', 'catid', 'cat_title', 'cat_description', basename(dirname(__DIR__))));
+		parent::__construct($db, 'category', 'catid', 'cat_title', 'cat_description', basename(dirname(__DIR__)));
 	}
 
 	/*
@@ -31,7 +31,7 @@ class mod_profile_CategoryHandler extends icms_ipf_Handler {
 	 * @return bool
 	 */
 	protected function beforeDelete(&$obj) {
-		$profile_fields_handler = icms_getModuleHandler('field', basename(dirname(__DIR__))), 'profile');
+		$profile_fields_handler = icms_getModuleHandler('field', basename(dirname(__DIR__)), 'profile');
 		$fields_count = $profile_fields_handler->getCount(icms_buildCriteria(array('catid' => $obj->getVar('catid'))));
 		if ($fields_count == 0) return true;
 		$obj->setErrors(sprintf(_AM_PROFILE_CATEGORY_NOTDELETED_FIELDS, $fields_count));

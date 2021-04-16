@@ -41,7 +41,7 @@ function editregstep($regstep_id = 0) {
 
 include_once 'admin_header.php';
 
-$profile_regstep_handler = icms_getModuleHandler('regstep', basename(dirname(__DIR__))), 'profile');
+$profile_regstep_handler = icms_getModuleHandler('regstep', basename(dirname(__DIR__)), 'profile');
 /** Use a naming convention that indicates the source of the content of the variable */
 $clean_op = '';
 if (isset($_GET['op'])) $clean_op = htmlentities($_GET['op']);

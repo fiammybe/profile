@@ -154,7 +154,7 @@ class mod_profile_Tribes extends icms_ipf_seo_Object {
 
 		if (!is_object(icms::$user)) return false;
 
-		$profile_tribeuser_handler = icms_getModuleHandler('tribeuser', basename(dirname(__DIR__))), 'profile');
+		$profile_tribeuser_handler = icms_getModuleHandler('tribeuser', basename(dirname(__DIR__)), 'profile');
 		if ($this->getVar('security') == PROFILE_TRIBES_SECURITY_EVERYBODY) {
 			$tribeusers = $profile_tribeuser_handler->getTribeusers(0, 1, icms::$user->getVar('uid'), false, $this->getVar('tribes_id'));
 		} elseif ($this->getVar('security') == PROFILE_TRIBES_SECURITY_APPROVAL) {

@@ -19,7 +19,7 @@ class mod_profile_TribepostHandler extends icms_ipf_Handler {
 	 * @param icms_db_legacy_Database $db database object
 	 */
 	public function __construct(&$db) {
-		parent::__construct($db, 'tribepost', 'post_id', 'title', '', basename(dirname(__DIR__))));
+		parent::__construct($db, 'tribepost', 'post_id', 'title', '', basename(dirname(__DIR__)));
 	}
 
 	/**
@@ -72,7 +72,7 @@ class mod_profile_TribepostHandler extends icms_ipf_Handler {
 	 * @return bool
 	 */
 	protected function beforeInsert(&$obj) {
-		$profile_tribetopic_handler = icms_getModuleHandler('tribetopic', basename(dirname(__DIR__))), 'profile');
+		$profile_tribetopic_handler = icms_getModuleHandler('tribetopic', basename(dirname(__DIR__)), 'profile');
 		$tribetopicObj = $profile_tribetopic_handler->get($obj->getVar('topic_id'));
 		if ($tribetopicObj->isNew() || (!$tribetopicObj->isNew() && !$obj->isNew() && $tribetopicObj->getVar('post_id') == $obj->getVar('post_id'))) {
 			$tribetopicObj->setVar('tribes_id', $obj->getVar('tribes_id'));
@@ -95,13 +95,13 @@ class mod_profile_TribepostHandler extends icms_ipf_Handler {
 	 * @return bool
 	 */
 	protected function afterInsert(&$obj) {
-		$profile_tribetopic_handler = icms_getmodulehandler('tribetopic', basename(dirname(__DIR__))), 'profile');
+		$profile_tribetopic_handler = icms_getmodulehandler('tribetopic', basename(dirname(__DIR__)), 'profile');
 		$tribetopicObj = $profile_tribetopic_handler->get($obj->getVar('topic_id'));
 
 		// send notifications for new post if this is a reply
 		if ($tribetopicObj->getVar('replies') > 0) {
 			$thisUser = icms::handler("icms_member")->getUser($obj->getVar('poster_uid'));
-			$module = icms::handler("icms_module")->getByDirname(basename(dirname(__DIR__))), TRUE);
+			$module = icms::handler("icms_module")->getByDirname(basename(dirname(__DIR__)), TRUE);
 			$tags['TRIBETOPIC_TITLE'] = $tribetopicObj->getVar('title');
 			$tags['POSTER_UNAME'] = $thisUser->getVar('uname');
 			$start = '';
@@ -110,7 +110,7 @@ class mod_profile_TribepostHandler extends icms_ipf_Handler {
 			}
 			$tags['TRIBEPOST_URL'] = str_replace($tribetopicObj->handler->_itemname.'.php?', 'tribes.php?tribes_id='.$obj->getVar('tribes_id').'&', $tribetopicObj->getItemLink(true));
 			$tags['TRIBEPOST_URL'] = $tags['TRIBEPOST_URL'].$start.'#post'.$obj->getVar('post_id');
-			$profile_tribes_handler = icms_getModuleHandler('tribes', basename(dirname(__DIR__))), 'profile');
+			$profile_tribes_handler = icms_getModuleHandler('tribes', basename(dirname(__DIR__)), 'profile');
 			$tribesObj = $profile_tribes_handler->get($obj->getVar('tribes_id'));
 			$tags['TRIBE_TITLE'] = $tribesObj->getVar('title');
 			icms::handler('icms_data_notification')->triggerEvent('tribepost', $obj->getVar('topic_id'), 'new_tribepost', $tags, array(), $module->getVar('mid'));
@@ -133,7 +133,7 @@ class mod_profile_TribepostHandler extends icms_ipf_Handler {
 	 */
 	protected function beforeUpdate(&$obj) {
 		$ret = true;
-		$profile_tribetopic_handler = icms_getModuleHandler('tribetopic', basename(dirname(__DIR__))), 'profile');
+		$profile_tribetopic_handler = icms_getModuleHandler('tribetopic', basename(dirname(__DIR__)), 'profile');
 		$tribetopicObj = $profile_tribetopic_handler->get($obj->getVar('topic_id'));
 		if ($tribetopicObj->getVar('post_id') == $obj->getVar('post_id')) {
 			$tribetopicObj->setVar('tribes_id', $obj->getVar('tribes_id'));
@@ -155,7 +155,7 @@ class mod_profile_TribepostHandler extends icms_ipf_Handler {
 	 * @return bool
 	 */
 	protected function afterDelete(&$obj) {
-		$profile_tribetopic_handler = icms_getModuleHandler('tribetopic', basename(dirname(__DIR__))), 'profile');
+		$profile_tribetopic_handler = icms_getModuleHandler('tribetopic', basename(dirname(__DIR__)), 'profile');
 		$tribetopicObj = $profile_tribetopic_handler->get($obj->getVar('topic_id'));
 
 		if ($tribetopicObj->getVar('post_id') == $obj->getVar('post_id')) {

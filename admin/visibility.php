@@ -19,7 +19,7 @@ icms_cp_header();
 icms::$module->displayAdminMenu(4, _MI_PROFILE_VISIBILITY);
 $op = isset($_REQUEST['op']) ? trim($_REQUEST['op']) : "visibility";
 
-$visibility_handler = icms_getmodulehandler('visibility', basename(dirname(__DIR__))), 'profile');
+$visibility_handler = icms_getmodulehandler('visibility', basename(dirname(__DIR__)), 'profile');
 
 if (isset($_REQUEST['submit'])) {
     $visibility = $visibility_handler->create();
@@ -32,7 +32,7 @@ if (isset($_REQUEST['submit'])) {
     $visibility_handler->delete($visibility, true);
 }
 
-$field_handler = icms_getmodulehandler('field', basename(dirname(__DIR__))), 'profile');
+$field_handler = icms_getmodulehandler('field', basename(dirname(__DIR__)), 'profile');
 $fields = $field_handler->getList();
 $visibilities = $visibility_handler->getObjects();
 foreach (array_keys($visibilities) as $i) $visifields[$visibilities[$i]->getVar('fieldid')][] = $visibilities[$i]->toArray();

@@ -38,7 +38,7 @@ function editvideos($videos_id = 0) {
 
 include_once 'admin_header.php';
 
-$profile_videos_handler = icms_getModuleHandler('videos', basename(dirname(__DIR__))), 'profile');
+$profile_videos_handler = icms_getModuleHandler('videos', basename(dirname(__DIR__)), 'profile');
 /** Use a naming convention that indicates the source of the content of the variable */
 $clean_op = '';
 if (isset($_GET['op'])) $clean_op = htmlentities($_GET['op']);

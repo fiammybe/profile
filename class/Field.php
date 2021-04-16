@@ -259,14 +259,14 @@ class mod_profile_Field extends icms_ipf_Object {
 				break;
 			case "image":
 				if ($value == "") return '';
-				return "<img src='".ICMS_UPLOAD_URL."/".basename(dirname(__DIR__)))."/".$value."' alt='image' />";
+				return "<img src='".ICMS_UPLOAD_URL."/".basename(dirname(__DIR__))."/".$value."' alt='image' />";
 				break;
 			case "url":
 				if ($value == "") return '';
 				return icms_core_DataFilter::makeClickable(formatURL($value));
 			case "location":
 				if ($value == "") return '';
-				return $value.'&nbsp;<a href="http://maps.google.com/?q='.$value.'" target="_blank" ><img src="'.ICMS_URL.'/modules/'.basename(dirname(__DIR__))).'/images/mapsgoogle.gif" alt="" /></a>';
+				return $value.'&nbsp;<a href="http://maps.google.com/?q='.$value.'" target="_blank" ><img src="'.ICMS_URL.'/modules/'.basename(dirname(__DIR__)).'/images/mapsgoogle.gif" alt="" /></a>';
 			case "email":
 				if ($value == "") return '';
 				if ($user->getVar('user_viewemail') || (is_object(icms::$user) && (icms::$user->isAdmin() || icms::$user->getVar('uid') == $user->getVar('uid')))) return '<a href="mailto:'.$value.'">'.$value.'</a>';
@@ -322,7 +322,7 @@ class mod_profile_Field extends icms_ipf_Object {
 				if (!isset($_FILES[$_POST['xoops_upload_file'][0]])) return $oldvalue;
 
 				$options = unserialize($this->getVar('field_options', 'n'));
-				$dirname = ICMS_UPLOAD_PATH.'/'.basename(dirname(__DIR__)));
+				$dirname = ICMS_UPLOAD_PATH.'/'.basename(dirname(__DIR__));
 				if (!is_dir($dirname)) mkdir($dirname);
 
 				$uploader = new icms_file_MediaUploadHandler($dirname, array('image/gif', 'image/jpeg', 'image/pjpeg', 'image/x-png', 'image/png'), $options['maxsize']*1024, $options['maxwidth'], $options['maxheight']);
@@ -349,7 +349,7 @@ class mod_profile_Field extends icms_ipf_Object {
 	 * @return array
 	 */
 	private function getUserVars() {
-		$profile_handler = icms_getModuleHandler('profile', basename(dirname(__DIR__))), 'profile');
+		$profile_handler = icms_getModuleHandler('profile', basename(dirname(__DIR__)), 'profile');
 		return $profile_handler->getUserVars();
 	}
 	
@@ -374,7 +374,7 @@ class mod_profile_Field extends icms_ipf_Object {
 	 */
 	public function getCatid() {
 		$icmsPersistableRegistry = icms_ipf_registry_Handler::getInstance();
-		$category = $icmsPersistableRegistry->getSingleObject('category', $this->getVar('catid'), basename(dirname(__DIR__))));
+		$category = $icmsPersistableRegistry->getSingleObject('category', $this->getVar('catid'), basename(dirname(__DIR__)));
 		return $category->getVar('cat_title');
 	}
 

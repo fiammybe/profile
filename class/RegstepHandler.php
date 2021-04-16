@@ -19,7 +19,7 @@ class mod_profile_RegstepHandler extends icms_ipf_Handler {
 	 * @param icms_db_legacy_Database $db database connection object
 	 */
 	public function __construct(&$db) {
-		parent::__construct($db, 'regstep', 'step_id', 'step_name', 'step_name', basename(dirname(__DIR__))));
+		parent::__construct($db, 'regstep', 'step_id', 'step_name', 'step_name', basename(dirname(__DIR__)));
 	}
 
 	/**
@@ -48,7 +48,7 @@ class mod_profile_RegstepHandler extends icms_ipf_Handler {
 	 */
 	public function delete(&$obj, $force = false) {
 		if (parent::delete($obj, $force)) {
-			$field_handler = icms_getModuleHandler('field', basename(dirname(__DIR__))), 'profile');
+			$field_handler = icms_getModuleHandler('field', basename(dirname(__DIR__)), 'profile');
 			return $field_handler->updateAll('step_id', 0, new icms_db_criteria_Item('step_id', $obj->getVar('step_id')));
 		}
 		return false;

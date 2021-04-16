@@ -26,17 +26,17 @@ function profile_iteminfo($category, $item_id) {
 			$thisUser = icms::handler('icms_member')->getUser($item_id);
 			if ($thisUser === false) break;
 			$item['name'] = $thisUser->getVar('uname');
-			$item['url'] = ICMS_URL.'/modules/'.basename(dirname(__DIR__))).'/'.$category.'.php?uid='.$item_id;
+			$item['url'] = ICMS_URL.'/modules/'.basename(dirname(__DIR__)).'/'.$category.'.php?uid='.$item_id;
 			break;
 		case 'tribetopic':
-			$profile_tribes_handler = icms_getModuleHandler('tribes', basename(dirname(__DIR__))), 'profile');
+			$profile_tribes_handler = icms_getModuleHandler('tribes', basename(dirname(__DIR__)), 'profile');
 			$tribesObj = $profile_tribes_handler->get($item_id);
 			if ($tribesObj->isNew()) break;
 			$item['name'] = $tribesObj->getVar('title');
 			$item['url'] = $tribesObj->getItemLink(true);
 			break;
 		case 'tribepost':
-			$profile_tribetopic_handler = icms_getModuleHandler('tribetopic', basename(dirname(__DIR__))), 'profile');
+			$profile_tribetopic_handler = icms_getModuleHandler('tribetopic', basename(dirname(__DIR__)), 'profile');
 			$tribetopicObj = $profile_tribetopic_handler->get($item_id);
 			if ($tribetopicObj->isNew()) break;
 			$tribetopic = $tribetopicObj->toArray();

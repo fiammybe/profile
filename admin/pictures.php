@@ -32,7 +32,7 @@ function editpictures($pictures_id = 0) {
 
 include_once 'admin_header.php';
 
-$profile_pictures_handler = icms_getModuleHandler('pictures', basename(dirname(__DIR__))), 'profile');
+$profile_pictures_handler = icms_getModuleHandler('pictures', basename(dirname(__DIR__)), 'profile');
 /** Use a naming convention that indicates the source of the content of the variable */
 $clean_op = '';
 if (isset($_GET['op'])) $clean_op = htmlentities($_GET['op']);

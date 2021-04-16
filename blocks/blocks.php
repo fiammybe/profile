@@ -19,7 +19,7 @@ function b_profile_friends_show($options) {
 	global $xoTheme;
 
 	if (!empty(icms::$user)){
-		$profile_friendship_handler = icms_getModuleHandler('friendship', basename(dirname(__DIR__))), 'profile');
+		$profile_friendship_handler = icms_getModuleHandler('friendship', basename(dirname(__DIR__)), 'profile');
 		$friends = $profile_friendship_handler->getFriendships(0, 0, icms::$user->getVar('uid'), 0, PROFILE_FRIENDSHIP_STATUS_ACCEPTED);
 		if (count($friends) == 0) return;
 		$block = array();
@@ -56,10 +56,10 @@ function b_profile_usermenu_show($options) {
 	global $icmsConfigUser;
 
 	if (!is_object(icms::$user)) return;
-	icms_loadLanguageFile(basename(dirname(__DIR__))), 'modinfo');
+	icms_loadLanguageFile(basename(dirname(__DIR__)), 'modinfo');
 
 	$block = array();
-	$dirname = basename(dirname(__DIR__)));
+	$dirname = basename(dirname(__DIR__));
 
 	$config_handler = icms::handler('icms_config');
 	$privmessage_handler = icms::handler('icms_data_privmessage');
