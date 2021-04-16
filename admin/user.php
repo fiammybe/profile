@@ -47,14 +47,15 @@ switch($op) {
 				$form->display();
 				echo "<br />\n";
 			}
-	
+	    break;
+
 	case 'new':
-		icms_loadLanguageFile(basename(dirname(dirname(__FILE__))), 'main');
+		icms_loadLanguageFile(basename(dirname(__DIR__)), 'main');
 		if (!$adminMenuIncluded) icms::$module->displayAdminMenu(0, _MI_PROFILE_USERS);
 		include_once('../include/forms.php');
 		$obj = $member_handler->createUser();
 		$obj->setGroups(array(ICMS_GROUP_USERS));
-		$form =& getUserForm($obj, false, false, true);
+		$form = getUserForm($obj, false, false, true);
 		$form->display();
 		break;
 
