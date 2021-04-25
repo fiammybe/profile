@@ -89,9 +89,9 @@ switch($op) {
 		$errors = array();
 		$stop = '';
 
-		$login_name = isset($_POST['login_name']) ? trim($_POST['login_name']) : '';
-		$uname = isset($_POST['uname']) ? trim($_POST['uname']) : '';
-		$email = isset($_POST['email']) ? trim($_POST['email']) : '';
+		$login_name = isset($_POST['login_name']) ? icms_core_DataFilter::stripSlashesGPC(trim($_POST['login_name'])) : '';
+		$uname = isset($_POST['uname']) ? icms_core_DataFilter::stripSlashesGPC(trim($_POST['uname'])) : '';
+		$email = isset($_POST['email']) ? icms_core_DataFilter::stripSlashesGPC(trim($_POST['email'])) : '';
 		$pass = isset($_POST['password']) ? icms_core_DataFilter::stripSlashesGPC($_POST['password']) : '';
 		$vpass = isset($_POST['vpass']) ? icms_core_DataFilter::stripSlashesGPC($_POST['vpass']) : '';
 
